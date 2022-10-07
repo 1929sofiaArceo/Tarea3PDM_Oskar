@@ -9,8 +9,8 @@ class MatchBook extends StatefulWidget {
 }
 
 class _MatchBookState extends State<MatchBook> {
-
   @override
+  bool fullDescription = false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +36,15 @@ class _MatchBookState extends State<MatchBook> {
               ],
             ),
           ),
-          Text(widget.book['volumeInfo']['description'] == null? 'descripcion ausente': widget.book['volumeInfo']['description'], style: TextStyle(fontSize: 15)),
+          GestureDetector(
+            child: Text(widget.book['volumeInfo']['description'] == null? 'Descripción no disponible': fullDescription == true?  widget.book['volumeInfo']['description'].toString().substring(0, 256)+'...': widget.book['volumeInfo']['description'].toString().substring(0, 128)+'...', style: TextStyle(fontSize: 15)),
+            onTap: () {
+              this.fullDescription = !this.fullDescription;
+              print(this.fullDescription);
+              setState(() {});
+            },
+          )
+          
         ],
       ),
     );
