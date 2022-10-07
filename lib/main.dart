@@ -1,5 +1,8 @@
+import 'package:provider/provider.dart';
 import 'package:tarea3/home_page.dart';
 import 'package:flutter/material.dart';
+
+import 'myprovider.dart';
 
 
 void main() => runApp(MyApp());
@@ -11,7 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: HomePage(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<MyProvider>(create: (_) => MyProvider()),
+        ],
+        child: HomePage(),
+      )
     );
   }
 }

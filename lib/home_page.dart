@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tarea3/match_book.dart';
+import 'package:provider/provider.dart';
+import './match_book.dart';
+import 'myprovider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -26,11 +28,19 @@ class HomePage extends StatelessWidget {
                 suffixIcon: Align(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
-                  child: IconButton(onPressed: searchBook,icon: Icon(Icons.search),),
+                  child: IconButton(onPressed: () async => {
+                    await context.read<MyProvider>().search('el señor de los anillos'),
+                  },
+                  icon: Icon(Icons.search),),
                 ),
               ),
             ),
           ),
+
+          //AQUI ESTÁ EL RESULTADO DE EL GET
+
+          Text((context.watch<MyProvider>().result['totalItems']).toString()),
+
           Expanded(
             child: GridView.count(
               scrollDirection: Axis.vertical,
@@ -271,7 +281,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void searchBook(){
+  Future<void> searchBook(Future<void> context) async {
+    
     print(this.bookTitle.value.text);
   }
 }
