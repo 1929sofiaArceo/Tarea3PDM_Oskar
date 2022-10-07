@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                   widthFactor: 1.0,
                   heightFactor: 1.0,
                   child: IconButton(onPressed: () async => {
-                    await context.read<MyProvider>().search('el señor de los anillos'),
+                    await context.read<MyProvider>().search(this.bookTitle.value.text),
                   },
                   icon: Icon(Icons.search),),
                 ),
@@ -38,20 +38,22 @@ class HomePage extends StatelessWidget {
 
           //AQUI ESTÁ EL RESULTADO DE EL GET
 
-          Text((context.watch<MyProvider>().result['totalItems']).toString()),
-
+          // Text((context.watch<MyProvider>().result['totalItems']).toString()),
           Expanded(
             child: GridView.count(
+              crossAxisCount: 2,
               scrollDirection: Axis.vertical,
               padding: const EdgeInsets.all(20),
               crossAxisSpacing: 30, //separacion <->
               mainAxisSpacing: 10, // separacion arriba a abajo
-              crossAxisCount: 2,
               shrinkWrap: true,
-              children: <Widget>[
+              children: List<Widget>.generate(
+                // (context.watch<MyProvider>().result['totalItems'] != null? (context.watch<MyProvider>().result['items'].length > 16? 16: context.watch<MyProvider>().result['totalItems']): 0),
+                (context.watch<MyProvider>().result['totalItems'] != null? context.watch<MyProvider>().result['items'].length: 0),
+                (index) => 
                 GestureDetector(
                   onTap: () {
-                    var tapped_book = context.read<MyProvider>().result['items'][1];
+                    var tapped_book = context.read<MyProvider>().result['items'][index];
                     // print(tapped_book.toString());
                     Navigator.push(context, MaterialPageRoute(builder: (context) => MatchBook(book: tapped_book)));
                   },
@@ -77,7 +79,7 @@ class HomePage extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Text(
-                                "The mind of a leader",
+                                "${context.read<MyProvider>().result['items'][index]['volumeInfo']['title']}",
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
                               ),
                             ),
@@ -87,203 +89,12 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-thriller-book-cover-design-template-3675ae3e3ac7ee095fc793ab61b812cc_screen.jpg?ts=1637008457"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "The king of drugs",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.adobe.com/express/create/cover/media_181e3d2c78f153ae7bf0e19a2faeb9a76e234da30.jpeg?width=400&format=jpeg&optimize=medium"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "Crack the code",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.adobe.com/express/create/cover/media_178ebed46ae02d6f3284c7886e9b28c5bb9046a02.jpeg?width=400&format=jpeg&optimize=medium"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "Lunar Storm",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.designforwriters.com/wp-content/uploads/2017/10/design-for-writers-book-cover-tf-2-a-million-to-one.jpg"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "A million to one",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.designforwriters.com/wp-content/uploads/2017/10/design-for-writers-book-cover-tf-2-a-million-to-one.jpg"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "A million to one",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.designforwriters.com/wp-content/uploads/2017/10/design-for-writers-book-cover-tf-2-a-million-to-one.jpg"),
-                        fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "A million to one",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
           Text("Ingrese palabra para buscar el título"),
         ],
       )
     );
-  }
-
-  Future<void> searchBook(Future<void> context) async {
-    
-    print(this.bookTitle.value.text);
   }
 }
