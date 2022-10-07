@@ -5,7 +5,6 @@ import 'myprovider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-
   final bookTitle = TextEditingController();
 
   @override
@@ -52,7 +51,9 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MatchBook()));
+                    var tapped_book = context.read<MyProvider>().result['items'][1];
+                    // print(tapped_book.toString());
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MatchBook(book: tapped_book)));
                   },
                   child: Stack(
                     children: [

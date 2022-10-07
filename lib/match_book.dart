@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class MatchBook extends StatelessWidget {
-  const MatchBook({super.key});
+class MatchBook extends StatefulWidget {
+  const MatchBook({super.key,required this.book});
+  final Map book;
+
+  @override
+  State<MatchBook> createState() => _MatchBookState();
+}
+
+class _MatchBookState extends State<MatchBook> {
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +19,24 @@ class MatchBook extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // Text(widget.book.toString()),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Image(image: NetworkImage("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff.jpg?ts=1637017516")),
           ),
-          Text("The mind of a leader", style: TextStyle(fontWeight: FontWeight.w200, fontSize: 30)),
-          SizedBox(height: 15,),
-          Text("2018-08-15", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Text("Páginas: 280", style: TextStyle(fontSize: 18)),
-          Text("The Fault in Our Stars es una película estadounidense de drama adolescente basada en la novela homónima escrita por John Green, dirigida por Josh Boone, con guion de Scott Neustadter y Michael H. Weber y protagonizada por Shailene Woodley y Ansel Elgort, trabajando juntos por segunda vez desde sus participaciones en la película Divergent, estrenada unos meses antes de esta película. Fue estrenada el 6 de junio de 2014 en Estados Unidos.", style: TextStyle(fontSize: 15)),
+          
+          Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Column(
+              children: [
+                Text(widget.book['volumeInfo']['title'], style: TextStyle(fontWeight: FontWeight.w200, fontSize: 30)),
+                SizedBox(height: 15,),
+                Text(widget.book['volumeInfo']['publishedDate'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                Text(widget.book['volumeInfo']['pageCount'].toString(), style: TextStyle(fontSize: 18)),
+              ],
+            ),
+          ),
+          Text(widget.book['volumeInfo']['description'] == null? 'descripcion ausente': widget.book['volumeInfo']['description'], style: TextStyle(fontSize: 15)),
         ],
       ),
     );
